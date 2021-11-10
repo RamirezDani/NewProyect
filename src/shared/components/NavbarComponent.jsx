@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import {Link} from 'react-router-dom';
 
 function NavbarComponent() {
-
+    
     return (
         <Fragment>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
