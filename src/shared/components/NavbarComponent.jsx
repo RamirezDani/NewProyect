@@ -19,7 +19,7 @@ function NavbarComponent() {
                                 <Link to = '/HomePage'class="nav-link active" aria-current="page">Home</Link>
                             </li>
                             <li class="nav-item">
-                                <Link to= '/' class="nav-link">Algo</Link>
+                                <Link to= '/productos' class="nav-link">Productos</Link>
                             </li>
                             <li class="nav-item dropdown">
                                 <Link class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
