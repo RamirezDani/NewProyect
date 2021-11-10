@@ -3,12 +3,16 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import RegisterPage from './RegisterPage/RegisterPage';
 import NavbarComponent from './shared/components/NavbarComponent';
 import HomePage from './Home/HomePage';
-import ProductosPage from './ProductosPage/ProductosPage';
-import RegistroProductoPage from './RegistroProductoPage/RegistroProductoPage';
+import {Productos} from './ProductosPage/Productos';
+import {CreaProducto} from './RegistroProductoPage/CreaProducto';
 
 function App() {
   return (
+
+    // RUTAS
+
     <Router>
+      {/* Llama a la barra de navegacion desde su carpeta*/}
       <NavbarComponent />
       <Switch>
         <Route path="/" exact>
@@ -20,12 +24,10 @@ function App() {
         <Route path="/HomePage" exact>
             <HomePage />
         </Route>
-        <Route path="/ProductosPage" exact>
-            <ProductosPage />
-        </Route>
-        <Route path="/RegistroProducto" exact>
-            <RegistroProductoPage />
-        </Route>
+        {/* Seccion Productos */}
+        <Route exact path="/productos" component={Productos}/>            
+        <Route exact path="/lista-productos/:id" component={CreaProducto}/>
+            
       </Switch>
     </Router>
   );
