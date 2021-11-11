@@ -5,6 +5,8 @@ import NavbarComponent from './shared/components/NavbarComponent';
 import HomePage from './Home/HomePage';
 import {Productos} from './ProductosPage/Productos';
 import {CreaProducto} from './RegistroProductoPage/CreaProducto';
+import Ventas from './VentasPage/Ventas';
+import { CreaVenta } from './VentaNueva/CreaVenta';
 
 function App() {
   return (
@@ -27,6 +29,9 @@ function App() {
         {/* Seccion Productos */}
         <Route exact path="/productos" component={Productos}/>            
         <Route exact path="/lista-productos/:id" component={CreaProducto}/>
+        <Route exact path="/Ventas" component={Ventas}/>
+        <Route exact path="/lista-ventas/:id" component={CreaVenta}/>
+        
             
       </Switch>
     </Router>
