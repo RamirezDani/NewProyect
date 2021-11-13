@@ -16,35 +16,37 @@ export const CreaVenta = () => {
     // console.log('id: ', id);
 
 
-    const handleNewProducto = async (e) => {
+    const handleNewVenta = async (e) => {
 
 
         e.preventDefault()
         const estado = document.getElementById("mySelect").value;
         // console.log((await consultaDb('lista-productos')).length)
-        let idProd = (await consultaDb('lista-productos')).length + 1
-        idProd = idProd.toString();
+        let idventa = (await consultaDb('lista-ventas')).length + 1
+        idventa = idventa.toString();
 
-        const producto = {
+        const venta = {
+            nombre,
+            documento,
             descripcion,
             precioUnitario,
             estado,
-            idProd
+            idventa
         }
 
 
-        await guardarDb('lista-productos', producto)
-        history.push('/productos')
+        await guardarDb('lista-ventas', venta)
+        history.push('/Ventas')
     }
 
     // modificar producto
-    const consultarProducto = async (idProducto) => {
+    const consultarVenta = async (idVenta) => {
 
-        const productoTemp = await consultaUnElementoDb('lista-productos', idProducto)
+        const ventaTemp = await consultaUnElementoDb('lista-ventas', idVenta)
         // console.log(productoTemp);
-        setDescripcion(productoTemp.descripcion)
-        setPrecioUnitario(productoTemp.precioUnitario)
-        document.getElementById("mySelect").value = productoTemp.estado
+        setDescripcion(ventaTemp.descripcion)
+        setPrecioUnitario(ventaTemp.precioUnitario)
+        document.getElementById("mySelect").value = ventaTemp.estado
 
 
     }
@@ -52,7 +54,7 @@ export const CreaVenta = () => {
     useEffect(() => {
         if (id !== 'create') {
 
-            consultarProducto(id)
+            consultarVenta(id)
         }
 
         setDescripcion('')
@@ -62,19 +64,21 @@ export const CreaVenta = () => {
     }, [id])
 
 
-    const handleActualizarProducto = async (e) => {
+    const handleActualizarVenta = async (e) => {
         e.preventDefault()
         var estado = document.getElementById("mySelect").value;
 
-        const producto = {
+        const venta = {
+            nombre,
+            documento,
             descripcion,
             precioUnitario,
             estado
         }
 
 
-        await actualizarDocDataBase('lista-productos', id, producto)
-        history.push('/productos')
+        await actualizarDocDataBase('lista-ventas', id, venta)
+        history.push('/Ventas')
 
 
     }
@@ -87,7 +91,7 @@ export const CreaVenta = () => {
         <div className="d-flex justify-content-center mt-5">
             <div className="card border-dark w-25">
                 <div className="card-header text-white bg-info border-dark">
-                    <h3>{id === 'create' ? 'Nueva venta' : 'Modificar Producto'}</h3>
+                    <h3>{id === 'create' ? 'Nueva venta' : 'Modificar venta'}</h3>
                 </div>
 
                 <div className="card-body text-primary">
@@ -129,9 +133,9 @@ export const CreaVenta = () => {
                     <h6 className="card-title mt-3">Estado</h6>
 
                     <select id="mySelect" className="form-select text-secondary border-dark" >
-                        <option value="Disponible">En Proceso</option>
-                        <option value="Disponible">Cancelada</option>
-                        <option value="No Disponible">Entregada</option>
+                        <option value="En proceso">En Proceso</option>
+                        <option value="Cancelada">Cancelada</option>
+                        <option value="Entregada">Entregada</option>
                     </select>
 
                     
@@ -149,12 +153,12 @@ export const CreaVenta = () => {
 
                     <div className="card-body">
                         <Link type="button" className="btn btn-secondary border-dark"
-                            to="/productos" >Atras</Link>
+                            to="/Ventas" >Atras</Link>
                     </div>
 
                     <div className="card-body text-end">
                         <button type="button" className="btn btn-info border-dark text-white"
-                            onClick={id === 'create' ? handleNewProducto : handleActualizarProducto}
+                            onClick={id === 'create' ? handleNewVenta : handleActualizarVenta}
 
                         >
                             {id === 'create' ? 'Guardar' : 'Modificar'}

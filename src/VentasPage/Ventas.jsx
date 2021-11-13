@@ -46,7 +46,7 @@ export const Ventas = () => {
 
             const arregloTemporal = listaVentas.filter((elemento) => {
 
-                return (elemento.descripcion) === ventaBuscada || (elemento.idProd) === ventaBuscada
+                return (elemento.descripcion) === ventaBuscada || (elemento.idVentas) === ventaBuscada
             })
             setlistaVentas(arregloTemporal)
             setSwt1(true)
@@ -63,7 +63,7 @@ export const Ventas = () => {
 
             const arregloTemporal = listaVentas.filter((elemento) => {
 
-                return (elemento.descripcion) === ventaBuscada || (elemento.idProd) === ventaBuscada
+                return (elemento.descripcion) === ventaBuscada || (elemento.idVentas) === ventaBuscada
             })
             setlistaVentas(arregloTemporal)
             setSwt1(true)
@@ -143,26 +143,26 @@ export const Ventas = () => {
                 <tbody>
 
                     {
-                        listaVentas.map((prod, index) => (
+                        listaVentas.map((venta, index) => (
 
-                            <tr key={prod.id} className="text-center">
+                            <tr key={venta.id} className="text-center">
                                 <th scope="row" >{index + 1}</th>
-                                <th>{"cosas Bd"}</th>
-                                <th>{"cosas Bd"}</th>
-                                <td>{prod.descripcion}</td>
-                                <td>{prod.precioUnitario}</td>
-                                <td>{prod.estado}</td>
+                                <th>{venta.nombre}</th>
+                                <th>{venta.documento}</th>
+                                <td>{venta.descripcion}</td>
+                                <td>{venta.precioUnitario}</td>
+                                <td>{venta.estado}</td>
                                 <td>{"fecha"}</td>
                                 <td >
                                     <div className="btn-group" role="group" aria-label="Borrar-Modificar">
 
                                         <Link type="button" className="btn btn-outline-dark border-dark"
-                                            to={`/lista-ventas/${prod.id}`}>
+                                            to={`/lista-ventas/${venta.id}`}>
                                             <i className="bi bi-brush"></i>
                                         </Link>
 
                                         <button className="btn btn-danger border-dark"
-                                            onClick={() => handleEliminar(prod.id)}>
+                                            onClick={() => handleEliminar(venta.id)}>
                                             <i className="bi bi-trash"></i>
                                         </button>
 

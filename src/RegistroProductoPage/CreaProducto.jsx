@@ -15,6 +15,7 @@ export const CreaProducto = () => {
     // console.log('id: ', id);
 
     
+    
     const handleNewProducto = async (e) => {            
 
 
