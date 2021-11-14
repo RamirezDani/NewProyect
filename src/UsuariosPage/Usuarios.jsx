@@ -8,8 +8,8 @@ export const Usuarios = () => {
 
 
     const [listaUsuarios, setListaUsuarios] = useState([])
-   
-    
+
+
 
     const cargarUsuarios = async () => {
 
@@ -29,10 +29,10 @@ export const Usuarios = () => {
 
 
 
-    const handleSelectRol = async (e,id)=>{
-              
+    const handleSelectRol = async (e, id) => {
+
         const elemTemp = await consultaUnElementoDb('lista-usuarios', id)
-        
+
         const email = elemTemp.email;
         const estado = elemTemp.estado;
         const rol = e;
@@ -41,16 +41,16 @@ export const Usuarios = () => {
             email,
             estado,
             rol
-          }        
+        }
 
-        actualizarDocDataBase('lista-usuarios', id,producto)    
-        
+        actualizarDocDataBase('lista-usuarios', id, producto)
+
     }
 
 
-    const handleSelectEstado = async (e,id)=>{
-              
-        const elemTemp = await consultaUnElementoDb('lista-usuarios', id)        
+    const handleSelectEstado = async (e, id) => {
+
+        const elemTemp = await consultaUnElementoDb('lista-usuarios', id)
         const email = elemTemp.email;
         const estado = e;
         const rol = elemTemp.rol;
@@ -59,10 +59,10 @@ export const Usuarios = () => {
             email,
             estado,
             rol
-          }        
+        }
 
-        actualizarDocDataBase('lista-usuarios', id,producto)    
-        
+        actualizarDocDataBase('lista-usuarios', id, producto)
+
     }
 
 
@@ -94,26 +94,41 @@ export const Usuarios = () => {
 
                                     <select id="mySelectUsuariosRol"
                                         className="form-select text-secondary border-dark"
-                                        onChange={(e,a) => handleSelectRol(e.target.value,prod.id)}>
+                                        onChange={(e, a) => handleSelectRol(e.target.value, prod.id)}>
 
                                         {prod.rol === 'Vendedor' ?
 
                                             <>
+
                                                 <option value="Vendedor">Vendedor</option>
                                                 <option value="Administrador">Administrador</option>
+                                                <option value="Sin Rol">Sin Rol</option>
                                             </> :
                                             'No hay'}
 
 
                                         {prod.rol === 'Administrador' ?
 
-                                            <>                                                
+                                            <>
                                                 <option value="Administrador">Administrador</option>
                                                 <option value="Vendedor">Vendedor</option>
+                                                <option value="Sin Rol">Sin Rol</option>
 
                                             </> :
                                             'No hay'}
-                                        
+
+
+                                        {prod.rol === 'Sin Rol' ?
+
+                                            <>
+                                                <option value="Sin Rol">Sin Rol</option>
+                                                <option value="Administrador">Administrador</option>
+                                                <option value="Vendedor">Vendedor</option>
+                                                
+
+                                            </> :
+                                            'No hay'}
+
 
                                     </select>
 
@@ -122,7 +137,7 @@ export const Usuarios = () => {
 
                                     <select id="mySelectUsuariosEstado"
                                         className="form-select text-secondary border-dark"
-                                        onChange={(e,a) => handleSelectEstado(e.target.value,prod.id)}>
+                                        onChange={(e, a) => handleSelectEstado(e.target.value, prod.id)}>
 
                                         {prod.estado === 'No Autorizado' ?
                                             <>
