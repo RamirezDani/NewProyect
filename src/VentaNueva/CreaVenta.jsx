@@ -6,11 +6,15 @@ import { Link } from 'react-router-dom'
 export const CreaVenta = () => {
 
     const [nombre, setNombre] = useState('')
-    const [documento, setDocumento]  = useState('')
     const [descripcion, setDescripcion] = useState('')
+    const [documento, setDocumento]  = useState('')
     const [precioUnitario, setPrecioUnitario] = useState('')
+    const [laFecha, setLaFecha] = useState('')
+
     const history = useHistory()
+
     const { id } = useParams()
+
     // const [idProd, setIdProd] = useState('')
 
     // console.log('id: ', id);
@@ -27,13 +31,14 @@ export const CreaVenta = () => {
 
         const venta = {
             nombre,
-            documento,
             descripcion,
+            documento,
             precioUnitario,
             estado,
+            laFecha,
             idventa
         }
-
+        console.log(laFecha)
 
         await guardarDb('lista-ventas', venta)
         history.push('/Ventas')
@@ -44,7 +49,9 @@ export const CreaVenta = () => {
 
         const ventaTemp = await consultaUnElementoDb('lista-ventas', idVenta)
         // console.log(productoTemp);
+        setNombre(ventaTemp.nombre)
         setDescripcion(ventaTemp.descripcion)
+        setDocumento(ventaTemp.documento)
         setPrecioUnitario(ventaTemp.precioUnitario)
         document.getElementById("mySelect").value = ventaTemp.estado
 
@@ -73,7 +80,8 @@ export const CreaVenta = () => {
             documento,
             descripcion,
             precioUnitario,
-            estado
+            estado,
+            laFecha
         }
 
 
@@ -104,21 +112,21 @@ export const CreaVenta = () => {
                         onChange={(event) => setNombre(event.target.value)}
                     ></input>
                     <br />
-                    <h6 className="card-title ">Documento</h6>
+                    <h6 className="card-title ">Descripción</h6>
                     <input className="form-control border-dark"
                         type="text"
-                        placeholder="12345678910"
-                        value={documento}
-                        onChange={(event) => setDocumento(event.target.value)}
+                        placeholder="Descripción del producto"
+                        value={descripcion}
+                        onChange={(event) => setDescripcion(event.target.value)}
                     ></input>
                     
                     <br />
-                    <h6 className="card-title ">Descripcion</h6>
+                    <h6 className="card-title ">Documento</h6>
                     <input className="form-control border-dark"
                         type="text"
-                        placeholder="Descripcion"
-                        value={descripcion}
-                        onChange={(event) => setDescripcion(event.target.value)}
+                        placeholder="1213135132"
+                        value={documento}
+                        onChange={(event) => setDocumento(event.target.value)}
                     ></input>
 
                     
@@ -142,9 +150,8 @@ export const CreaVenta = () => {
                     <h6 className="card-title mt-3">Fecha</h6>
                     <input className="form-control border-dark"
                         type="datetime-local"
-                        /*placeholder="ej: 5000"*/
-                        /*value={precioUnitario}*/
-                        /*onChange={(e) => setPrecioUnitario(e.target.value)}*/
+                        value={laFecha}
+                        onChange={(e) => setLaFecha(e.target.value)}
                     ></input>
 
                 </div>
