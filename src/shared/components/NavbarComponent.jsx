@@ -18,9 +18,16 @@ function NavbarComponent() {
                             <li class="nav-item">
                                 <Link to = '/HomePage'class="nav-link active" aria-current="page">Home</Link>
                             </li>
+                            {/* PRODUCTOS */}
                             <li class="nav-item">
                                 <Link to= '/productos' class="nav-link">Productos</Link>
                             </li>
+
+                            {/* USUARIOS */}
+                            <li class="nav-item">
+                                <Link to= '/usuarios' class="nav-link">Usuarios</Link>
+                            </li>
+
                             <li class="nav-item dropdown">
                                 <Link class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Otros

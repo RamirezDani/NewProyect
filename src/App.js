@@ -5,6 +5,7 @@ import NavbarComponent from './shared/components/NavbarComponent';
 import HomePage from './Home/HomePage';
 import {Productos} from './ProductosPage/Productos';
 import {CreaProducto} from './RegistroProductoPage/CreaProducto';
+import { Usuarios } from './UsuariosPage/Usuarios';
 
 function App() {
   return (
@@ -27,7 +28,10 @@ function App() {
         {/* Seccion Productos */}
         <Route exact path="/productos" component={Productos}/>            
         <Route exact path="/lista-productos/:id" component={CreaProducto}/>
-            
+        
+        {/* Seccion Productos */}
+        <Route exact path="/usuarios" component={Usuarios}/>  
+
       </Switch>
     </Router>
   );

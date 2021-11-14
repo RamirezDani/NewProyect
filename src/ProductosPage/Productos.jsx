@@ -126,6 +126,7 @@ export const Productos = () => {
 
                 <thead className="table-dark">
                     <tr className="text-center">
+                        {/* <th scope="col">#</th> */}
                         <th scope="col">ID</th>
                         <th scope="col">Descripcion</th>
                         <th scope="col">Valor Unitario</th>
@@ -141,8 +142,9 @@ export const Productos = () => {
                         listaProductos.map((prod, index) => (
 
                             <tr key={prod.id} className="text-center">
-                                <th scope="row" >{index + 1}</th>
-                                <td >{prod.descripcion}</td>
+                                {/* <th scope="row" >{index + 1}</th> */}
+                                <td >{prod.idProd}</td>
+                                <td >{prod.descripcion}</td>                                
                                 <td>{prod.precioUnitario}</td>
                                 <td>{prod.estado}</td>
                                 <td >
