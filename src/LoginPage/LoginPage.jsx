@@ -1,31 +1,55 @@
-import React, { Fragment,useEffect } from "react";
-import { Link,Redirect,useHistory } from 'react-router-dom';
+import React, { Fragment, useEffect } from "react";
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { consultaDb, guardarDb } from "../config/firebase";
 
 
 
 
 //import { useHistory } from "react-router-dom";
 function LoginPage() {
-   // let history = useHistory();
-   const history = useHistory();
-   var loginp;
-   
-   useEffect(() => {
-    
-    if (loginp && loginp.token) { history.replace("/homepage"); }
-  }, [loginp]);
+    // let history = useHistory();
+    const history = useHistory();
+    var loginp;
 
-   
-    function responseGoogle(response){
+    useEffect(() => {
+
+        if (loginp && loginp.token) { history.replace("/homepage"); }
+    }, [loginp]);
+
+    async function baseDatos(producto) {
+        await guardarDb('lista-usuarios', producto);
+        //const listatempo = await consultaDb('lista-usuarios');
+        //console.log("consulta base de datos: ")
+        //console.log(listatempo)
+
+    }
+
+    function responseGoogle(response) {
         //alert("hola")
-        history.replace("/homepage")
-        if(response && response.token){
-            console.log("login")
-            loginp=response;
-           
-        } 
+
+        if (response.accessToken)
+            if (response.nt.Yt) {
+                console.log("login")
+                loginp = response;
+                console.log(response.nt.Yt)//correo
+                console.log(response.nt.Se)//nombre
+                const producto = {
+                    "email": response.nt.Yt,
+                    "id": response.nt.Se,
+                    "rol": "Pendiente",
+                    "estado": "Sin Rol"
+                }
+
+
+                baseDatos(producto);
+
+                history.replace("/homepage")
+
+            }
+
+
 
 
     }
@@ -67,9 +91,9 @@ function LoginPage() {
                                 <label for="floatingPassword">Contraseña</label>
                             </div>
                             <div className="row">
-                                
+
                                 <div className="col">
-                                <br />
+                                    <br />
                                     <GoogleLogin
                                         clientId="341831177944-nd2lj723bpfua0q0gm38d3jckhgl3a5k.apps.googleusercontent.com"
                                         buttonText="LoginG"
