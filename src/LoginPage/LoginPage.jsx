@@ -1,7 +1,31 @@
-import React, { Fragment } from "react";
-import { Link } from 'react-router-dom';
+import React, { Fragment,useEffect } from "react";
+import { Link,Redirect,useHistory } from 'react-router-dom';
+import GoogleLogin from 'react-google-login';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
+
+
+
+//import { useHistory } from "react-router-dom";
 function LoginPage() {
+   // let history = useHistory();
+   const history = useHistory();
+   var loginp;
+   
+ 
+
+   
+    function responseGoogle(response){
+       
+        history.replace("/homepage")
+        if(response && response.token){
+            console.log("login")
+            loginp=response;
+           
+        } 
+
+
+    }
 
     return (
         <Fragment>
@@ -49,6 +73,20 @@ function LoginPage() {
                                     <Link to="/HomePage"><button type="button" className="btn btn-primary">Inciar sesión</button></Link>
                                     <br />
                                 </div>
+                                <div className="col">
+                                <br />
+                                    <GoogleLogin
+                                        clientId="341831177944-nd2lj723bpfua0q0gm38d3jckhgl3a5k.apps.googleusercontent.com"
+                                        buttonText="LoginG"
+                                        onSuccess={responseGoogle}
+                                        onFailure={responseGoogle}
+                                        cookiePolicy={'single_host_origin'}
+                                        redirectUri='http://localhost:3000/HomePage'
+                                    />
+                                    <br />
+                                </div>
+
+
                             </div>
 
 

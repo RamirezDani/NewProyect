@@ -25,6 +25,7 @@ function App() {
             <HomePage />
         </Route>
         {/* Seccion Productos */}
+        
         <Route exact path="/productos" component={Productos}/>            
         <Route exact path="/lista-productos/:id" component={CreaProducto}/>
             
