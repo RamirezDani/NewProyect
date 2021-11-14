@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { consultaDb, eliminarDocDataBase} from '../config/firebase';
+import { consultaDb, eliminarDocDataBase } from '../config/firebase';
 import { Link } from 'react-router-dom'
+import NavbarComponent from "../shared/components/NavbarComponent";
 
 
 
@@ -72,13 +73,13 @@ export const Productos = () => {
 
     }
 
-    
-   
+
+
     return (
 
 
         <div className="container mt-3 ">
-
+            <NavbarComponent />
 
             <div className="d-flex bd-highlight mb-3 ">
 
@@ -106,7 +107,7 @@ export const Productos = () => {
 
                 </div>
 
-                
+
                 <div className="p-2 bd-highlight">
                     <button className="btn btn-info text-white border-dark"
 
@@ -172,7 +173,7 @@ export const Productos = () => {
 
             </table>
 
-            
+
         </div>
 
     )

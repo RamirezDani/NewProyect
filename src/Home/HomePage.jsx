@@ -1,10 +1,11 @@
 import React, { Fragment } from "react";
 import {Link} from 'react-router-dom';
-
+import NavbarComponent from "../shared/components/NavbarComponent";
 function HomePage() {
 
     return (
         <div className="container">
+            <NavbarComponent />
             <h1>FatCat escrito con estilo chingón y centradito</h1>
             <br />
             <h2>Productos más vendidos</h2>
