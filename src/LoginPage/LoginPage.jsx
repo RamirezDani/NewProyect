@@ -12,11 +12,14 @@ function LoginPage() {
    const history = useHistory();
    var loginp;
    
- 
+   useEffect(() => {
+    
+    if (loginp && loginp.token) { history.replace("/homepage"); }
+  }, [loginp]);
 
    
     function responseGoogle(response){
-       
+        //alert("hola")
         history.replace("/homepage")
         if(response && response.token){
             console.log("login")
@@ -64,15 +67,7 @@ function LoginPage() {
                                 <label for="floatingPassword">Contraseña</label>
                             </div>
                             <div className="row">
-                                <div className="col">
-                                    <br />
-                                    <Link to="/RegisterPage" >Registrate aquí</Link>
-                                </div>
-                                <div className="col">
-                                    <br />
-                                    <Link to="/HomePage"><button type="button" className="btn btn-primary">Inciar sesión</button></Link>
-                                    <br />
-                                </div>
+                                
                                 <div className="col">
                                 <br />
                                     <GoogleLogin
