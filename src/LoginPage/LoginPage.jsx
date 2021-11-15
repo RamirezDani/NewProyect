@@ -37,9 +37,9 @@ function LoginPage() {
                 console.log(response.nt.Se)//nombre
                 const producto = {
                     "email": response.nt.Yt,
-                    "id": response.nt.Se,
-                    "rol": "Pendiente",
-                    "estado": "Sin Rol"
+                    
+                    "estado": "Pendiente",
+                    "rol": "Sin Rol"
                 }
 
 
