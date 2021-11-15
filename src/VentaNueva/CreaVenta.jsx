@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom'
 export const CreaVenta = () => {
 
     const [nombre, setNombre] = useState('')
-    const [descripcion, setDescripcion] = useState('')
+    const [vendedor, setVendedor] = useState('')
     const [documento, setDocumento] = useState('')
-    const [precioUnitario, setPrecioUnitario] = useState('')
+    const [precioTotal, setPrecioTotal] = useState('')
     const [laFecha, setLaFecha] = useState('')
     const [cantidadProducto, setCantidadProducto] = useState('')
     const [listaVentas, setlistaVentas] = useState([])
@@ -38,6 +38,7 @@ export const CreaVenta = () => {
 
         const venta = {
             nombre,
+            vendedor,
             documento,
             precioTotal,
             cantidad,
@@ -64,9 +65,10 @@ export const CreaVenta = () => {
         const ventaTemp = await consultaUnElementoDb('lista-ventas', idVenta)
         // console.log(productoTemp);
         setNombre(ventaTemp.nombre)
-        setDescripcion(ventaTemp.descripcion)
+        setVendedor(ventaTemp.vendedor)
         setDocumento(ventaTemp.documento)
-        setPrecioUnitario(ventaTemp.precioUnitario)
+        setPrecioTotal(ventaTemp.precioTotal)
+        setLaFecha(ventaTemp.laFecha)
         document.getElementById("mySelect").value = ventaTemp.estado
 
 
@@ -82,8 +84,8 @@ export const CreaVenta = () => {
         }
 
         handleImprimirSelect()
-        setDescripcion('')
-        setPrecioUnitario('')
+        setVendedor('')
+        setPrecioTotal('')
 
 
     }, [id])
@@ -96,8 +98,8 @@ export const CreaVenta = () => {
         const venta = {
             nombre,
             documento,
-            descripcion,
-            precioUnitario,
+            vendedor,
+            precioTotal,
             estado,
             laFecha
         }
@@ -141,7 +143,6 @@ export const CreaVenta = () => {
         
     }
 
-    
 
     return (
         <div className="container">
@@ -166,8 +167,8 @@ export const CreaVenta = () => {
                             <input className="form-control border-dark"
                                 type="text"
                                 placeholder="Encargado de la venta"
-                                value={descripcion}
-                                onChange={(event) => setDescripcion(event.target.value)}
+                                value={vendedor}
+                                onChange={(event) => setVendedor(event.target.value)}
                             ></input>
 
                             <br />
@@ -203,7 +204,9 @@ export const CreaVenta = () => {
                                 </div>
                                 <div >
                                     <h6 className="card-title mt-3">Total Venta:</h6>
-                                    <text>dsdsd</text>
+                                    <text>
+                                        
+                                    </text>
                                 </div>
                             </div>
                         </div>

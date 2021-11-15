@@ -72,12 +72,7 @@ export const Ventas = () => {
 
     }
 
-    const handleImprimir = async (e) => {
-        const baseD = await consultaDb('lista-productos')
-        console.log(baseD)
-
         
-        }
     return (
 
 
@@ -133,9 +128,10 @@ export const Ventas = () => {
                     <tr className="text-center">
                         <th scope="col">ID</th>
                         <th scope="col">Nombre cliente</th>
-                        <th scope="col">Descripcion</th>
+                        <th scope="col">Vendedor</th>
+                        <th scope="col">Cantidad</th>
                         <th scope="col">Documento</th>
-                        <th scope="col">Valor de venta</th>
+                        <th scope="col">Valor total</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Editar/Eliminar</th>
@@ -152,9 +148,10 @@ export const Ventas = () => {
                             <tr key={venta.id} className="text-center">
                                 <th scope="row" >{index + 1}</th>
                                 <th>{venta.nombre}</th>
-                                <td>{venta.descripcion}</td>
+                                <td>{venta.vendedor}</td>
+                                <td>{venta.cantidad}</td>
                                 <th>{venta.documento}</th>
-                                <td>{venta.precioUnitario}</td>
+                                <td>{venta.precioTotal}</td>
                                 <td>{venta.estado}</td>
                                 <td>{venta.laFecha}</td>
                                 <td >
@@ -168,11 +165,6 @@ export const Ventas = () => {
                                         <button className="btn btn-danger border-dark"
                                             onClick={() => handleEliminar(venta.id)}>
                                             <i className="bi bi-trash"></i>
-                                        </button>
-
-                                        <button className="btn btn-danger border-dark"
-                                            onClick={() => handleImprimir(venta.id)}>
-                                            ok
                                         </button>
 
 
