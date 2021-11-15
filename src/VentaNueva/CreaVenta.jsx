@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { guardarDb, consultaUnElementoDb, actualizarDocDataBase, consultaDb } from '../config/firebase'
 import { useHistory, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { fireEvent, prettyDOM } from '@testing-library/dom'
 
 export const CreaVenta = () => {
 
@@ -10,6 +11,7 @@ export const CreaVenta = () => {
     const [documento, setDocumento] = useState('')
     const [precioUnitario, setPrecioUnitario] = useState('')
     const [laFecha, setLaFecha] = useState('')
+    const [cantidadProducto, setCantidadProducto] = useState('')
 
     const history = useHistory()
 
@@ -95,20 +97,16 @@ export const CreaVenta = () => {
 
     const handleImprimir = async (e) => {
         const verListaProductos = await consultaDb('lista-productos')
+
+
+
         console.log(verListaProductos)
     }
 
-    const consultarProducto = async (idProducto) => {
+    const consultarProducto = async (verListaProductos) => {
 
-        const productoTemp = await consultaUnElementoDb('lista-productos', idProducto)
-        // console.log(productoTemp);
-        setNombre(productoTemp.nombre)
-        setDescripcion(productoTemp.descripcion)
-        setDocumento(productoTemp.documento)
-        setPrecioUnitario(productoTemp.precioUnitario)
-        document.getElementById("mySelect").value = productoTemp.estado
-
-        console.log(productoTemp)
+        const productoTemp = await consultaUnElementoDb("Lista-productos", verListaProductos)
+        console.log(productoTemp);
 
     }
 
@@ -209,86 +207,47 @@ export const CreaVenta = () => {
                         <div className="card-body text-primary">
 
                             <h6 className="card-title mt-3">Lista de productos</h6>
-
-                            <button className="btn btn-danger border-dark"
-                                onClick={() => handleImprimir()}
-                            //onClick={() => consultarProducto(descripcion.idProducto)}
-                            >
-
-                                ok
-                            </button>
-
                             <select id="mySelect" className="form-select text-secondary border-dark" >
-
-                                <option value="1}">
-
-                                </option>
-
 
                             </select>
                             <br />
 
+                            <h6 className="card-title ">Cantidad</h6>
+                            <input className="form-control border-dark"
+                                type="text"
+                                placeholder="Ej: 4"
+                                value={cantidadProducto}
+                                onChange={(event) => setCantidadProducto(event.target.value)}
+                            ></input>
+                            
+                            <br />
+
+                            <button type="button" className="btn btn-info border-dark text-white pull-right"
+                                onClick={() => handleImprimir()}
+                            //onClick={() => recorrer()}
+                            // onClick={() => consultarProducto("lista-productos", descripcion)}
+                            >
+                                Aceptar
+                            </button>
+
+
+
                         </div>
 
                     </div>
-<br />
+                    <br />
                     <div className="row">
                         <table className="table table-bordered border-dark">
 
                             <thead className="table-primary">
                                 <tr className="text-center">
                                     <th className="col-2">Cantidad</th>
-                                    <th className="col-6">Producto</th>
-                                    <th className="col-4">Precio</th>
-
-
+                                    <th className="col-4">Producto</th>
+                                    <th className="col-2">Precio</th>
+                                    <th className="col-4">Precio Total</th>
 
                                 </tr>
                             </thead>
-                            {/*
-                <tbody>
-
-                    {
-                        listaVentas.map((venta, index) => (
-
-                            <tr key={venta.id} className="text-center">
-                                <th scope="row" >{index + 1}</th>
-                                <th>{venta.nombre}</th>
-                                <td>{venta.descripcion}</td>
-                                <th>{venta.documento}</th>
-                                <td>{venta.precioUnitario}</td>
-                                <td>{venta.estado}</td>
-                                <td>{venta.laFecha}</td>
-                                <td >
-                                    <div className="btn-group" role="group" aria-label="Borrar-Modificar">
-
-                                        <Link type="button" className="btn btn-outline-dark border-dark"
-                                            to={`/lista-ventas/${venta.id}`}>
-                                            <i className="bi bi-brush"></i>
-                                        </Link>
-
-                                        <button className="btn btn-danger border-dark"
-                                            onClick={() => handleEliminar(venta.id)}>
-                                            <i className="bi bi-trash"></i>
-                                        </button>
-
-                                        <button className="btn btn-danger border-dark"
-                                            onClick={() => handleImprimir(venta.id)}>
-                                            ok
-                                        </button>
-
-
-                                    </div>
-                                </td>
-
-                            </tr>
-                        ))
-
-                    }
-                </tbody>
-                */}
-
-
                         </table>
                     </div>
                 </div>
