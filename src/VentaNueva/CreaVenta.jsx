@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { guardarDb, consultaUnElementoDb, actualizarDocDataBase, consultaDb } from '../config/firebase'
 import { useHistory, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import { fireEvent, prettyDOM } from '@testing-library/dom'
+// import { fireEvent, prettyDOM } from '@testing-library/dom'
 
 export const CreaVenta = () => {
 
@@ -12,14 +12,17 @@ export const CreaVenta = () => {
     const [precioUnitario, setPrecioUnitario] = useState('')
     const [laFecha, setLaFecha] = useState('')
     const [cantidadProducto, setCantidadProducto] = useState('')
+    const [listaVentas, setlistaVentas] = useState([])
+    const [listaProductosTemp, setlistaProductosTemp] = useState([])
+    const [contador1, setContador1] = useState(0)
+    const [tempProCantTotalState, setTempProCantTotalState] = useState(0)
+    
+    let tempProCantTotal = 0
+    let tempProTotal = 0
 
     const history = useHistory()
 
     const { id } = useParams()
-
-    // const [idProd, setIdProd] = useState('')
-
-    // console.log('id: ', id);
 
 
     const handleNewVenta = async (e) => {
@@ -30,12 +33,14 @@ export const CreaVenta = () => {
         // console.log((await consultaDb('lista-productos')).length)
         let idventa = (await consultaDb('lista-ventas')).length + 1
         idventa = idventa.toString();
+        const cantidad = tempProCantTotal
+        const precioTotal = tempProTotal
 
         const venta = {
             nombre,
-            descripcion,
             documento,
-            precioUnitario,
+            precioTotal,
+            cantidad,
             estado,
             laFecha,
             idventa
@@ -44,6 +49,13 @@ export const CreaVenta = () => {
 
         await guardarDb('lista-ventas', venta)
         history.push('/Ventas')
+    }
+
+    // definiendo producto y cantidad de la BD
+    const handleImprimirSelect = async () => {
+
+        const verListaProductos = await consultaDb('lista-productos')
+        setlistaVentas(verListaProductos)
     }
 
     // modificar producto
@@ -58,16 +70,18 @@ export const CreaVenta = () => {
         document.getElementById("mySelect").value = ventaTemp.estado
 
 
-
-
     }
+
+
 
     useEffect(() => {
         if (id !== 'create') {
 
+
             consultarVenta(id)
         }
 
+        handleImprimirSelect()
         setDescripcion('')
         setPrecioUnitario('')
 
@@ -95,22 +109,39 @@ export const CreaVenta = () => {
 
     }
 
-    const handleImprimir = async (e) => {
-        const verListaProductos = await consultaDb('lista-productos')
 
+    // Funcion del boton que guarda e imprime en tabla
+    const handleNewProducto = (e) => {
+        const productTemp = document.getElementById("mySelect-productos").value
+       
+        
+        const arregloTemporal = listaVentas.filter((elemento) => {
+            return elemento.descripcion === productTemp
+        })
+        const valorProductoUni = arregloTemporal[0].precioUnitario;
+        const valorProductoTotal = valorProductoUni * cantidadProducto;
+        
+        const objProductTem = {
+            cantObj: cantidadProducto,
+            prodObj: productTemp,
+            percObjUni: valorProductoUni,
+            percObjTotal: valorProductoTotal
+        }
 
+        listaProductosTemp[contador1] = objProductTem
+        setContador1(contador1 + 1)
+       
+        for (let a of listaProductosTemp){
+            tempProCantTotal = tempProCantTotal+parseInt(a.cantObj)
+            tempProTotal = tempProTotal + parseInt(a.percObjTotal)
+        }
 
-        console.log(verListaProductos)
+        console.log("tempProCantTotal: "+ tempProCantTotal);
+        console.log("tempProTotal: "+ tempProTotal);
+        
     }
 
-    const consultarProducto = async (verListaProductos) => {
-
-        const productoTemp = await consultaUnElementoDb("Lista-productos", verListaProductos)
-        console.log(productoTemp);
-
-    }
-
-
+    
 
     return (
         <div className="container">
@@ -131,10 +162,10 @@ export const CreaVenta = () => {
                                 onChange={(event) => setNombre(event.target.value)}
                             ></input>
                             <br />
-                            <h6 className="card-title ">Descripción</h6>
+                            <h6 className="card-title ">Encargado de la venta</h6>
                             <input className="form-control border-dark"
                                 type="text"
-                                placeholder="Descripción del producto"
+                                placeholder="Encargado de la venta"
                                 value={descripcion}
                                 onChange={(event) => setDescripcion(event.target.value)}
                             ></input>
@@ -148,14 +179,6 @@ export const CreaVenta = () => {
                                 onChange={(event) => setDocumento(event.target.value)}
                             ></input>
 
-
-                            <h6 className="card-title mt-3">Valor de venta</h6>
-                            <input className="form-control border-dark"
-                                type="text"
-                                placeholder="ej: 5000"
-                                value={precioUnitario}
-                                onChange={(e) => setPrecioUnitario(e.target.value)}
-                            ></input>
 
                             <h6 className="card-title mt-3">Estado</h6>
 
@@ -173,7 +196,19 @@ export const CreaVenta = () => {
                                 onChange={(e) => setLaFecha(e.target.value)}
                             ></input>
 
+                            <div className="d-flex justify-content-between">
+                                <div >
+                                    <h6 className="card-title mt-3">Total Productos:</h6>
+                                    <text>{tempProCantTotal}</text>
+                                </div>
+                                <div >
+                                    <h6 className="card-title mt-3">Total Venta:</h6>
+                                    <text>dsdsd</text>
+                                </div>
+                            </div>
                         </div>
+
+
 
                         <div className="d-flex justify-content-between">
 
@@ -195,10 +230,12 @@ export const CreaVenta = () => {
 
                         </div>
 
+
+
                     </div>
                 </div>
 
-                <div className="col">
+                <div className="col mt-3">
                     <div className="card border-dark">
                         <div className="card-header text-white bg-info border-dark">
                             <h3>Productos</h3>
@@ -206,8 +243,23 @@ export const CreaVenta = () => {
 
                         <div className="card-body text-primary">
 
+                            {/* SELECT DE PRODUCTOS */}
+
                             <h6 className="card-title mt-3">Lista de productos</h6>
-                            <select id="mySelect" className="form-select text-secondary border-dark" >
+                            <select id="mySelect-productos"
+                                className="form-select text-secondary border-dark">
+                                <option selected>Seleccione Producto</option>
+                                {
+                                    listaVentas.map((venta, index) => (
+
+                                        <option key={venta.id}
+                                            value={venta.descripcion}
+                                        >
+                                            {venta.descripcion}
+                                        </option>
+                                        // console.log(venta)
+                                    ))
+                                }
 
                             </select>
                             <br />
@@ -219,15 +271,12 @@ export const CreaVenta = () => {
                                 value={cantidadProducto}
                                 onChange={(event) => setCantidadProducto(event.target.value)}
                             ></input>
-                            
+
                             <br />
 
                             <button type="button" className="btn btn-info border-dark text-white pull-right"
-                                onClick={() => handleImprimir()}
-                            //onClick={() => recorrer()}
-                            // onClick={() => consultarProducto("lista-productos", descripcion)}
-                            >
-                                Aceptar
+                                onClick={() => handleNewProducto()}
+                            >Aceptar
                             </button>
 
 
@@ -235,21 +284,47 @@ export const CreaVenta = () => {
                         </div>
 
                     </div>
+
                     <br />
-                    <div className="row">
-                        <table className="table table-bordered border-dark">
 
-                            <thead className="table-primary">
-                                <tr className="text-center">
-                                    <th className="col-2">Cantidad</th>
-                                    <th className="col-4">Producto</th>
-                                    <th className="col-2">Precio</th>
-                                    <th className="col-4">Precio Total</th>
 
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+
+
+                    <table className="table table-striped table-bordered 
+                            align-middle border-dark">
+
+                        <thead className="bg-info text-white">
+
+                            <tr className="text-center">
+
+                                <th className="col-2">Cantidad</th>
+                                <th className="col-4">Producto</th>
+                                <th className="col-2">Precio</th>
+                                <th className="col-4">Precio Total</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {
+                                listaProductosTemp.map((pro, index) => (
+
+                                    <tr key={index} className="text-center">
+
+                                        <td>{pro.cantObj}</td>
+                                        <td>{pro.prodObj}</td>
+                                        <td>{pro.percObjUni}</td>
+                                        <td>{pro.percObjTotal}</td>
+                                    </tr>
+                                ))
+                            }
+
+
+                        </tbody>
+                    </table>
+
+
+
                 </div>
 
             </div>
