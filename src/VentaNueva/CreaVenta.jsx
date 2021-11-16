@@ -17,6 +17,8 @@ export const CreaVenta = () => {
     const [contador1, setContador1] = useState(0)
     const [tempProCantTotalState, setTempProCantTotalState] = useState(0)
     
+
+
     let tempProCantTotal = 0
     let tempProTotal = 0
 
@@ -140,7 +142,7 @@ export const CreaVenta = () => {
 
         console.log("tempProCantTotal: "+ tempProCantTotal);
         console.log("tempProTotal: "+ tempProTotal);
-        
+        //document.write(tempProTotal)
     }
 
 
@@ -197,18 +199,7 @@ export const CreaVenta = () => {
                                 onChange={(e) => setLaFecha(e.target.value)}
                             ></input>
 
-                            <div className="d-flex justify-content-between">
-                                <div >
-                                    <h6 className="card-title mt-3">Total Productos:</h6>
-                                    <text>{tempProCantTotal}</text>
-                                </div>
-                                <div >
-                                    <h6 className="card-title mt-3">Total Venta:</h6>
-                                    <text>
-                                        
-                                    </text>
-                                </div>
-                            </div>
+                            
                         </div>
 
 
