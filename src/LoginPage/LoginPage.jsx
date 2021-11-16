@@ -93,8 +93,8 @@ function LoginPage() {
                             </div>
                             <div className="row">
 
-                                <div className="col">
-                                    <br />
+                                <div className="d-flex justify-content-between mt-3">
+                                   
                                     <GoogleLogin
                                         clientId="341831177944-nd2lj723bpfua0q0gm38d3jckhgl3a5k.apps.googleusercontent.com"
                                         buttonText="LoginG"
@@ -103,7 +103,12 @@ function LoginPage() {
                                         cookiePolicy={'single_host_origin'}
                                         redirectUri='https://fervent-elion-3a8251.netlify.app/productos'
                                     />
-                                    <br />
+                                    
+
+                                    <Link type="button" className="btn btn-primary border-dark"
+                                            to={`/productos`}>
+                                            Entrar
+                                    </Link>
                                 </div>
 
 
