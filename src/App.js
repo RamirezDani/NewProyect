@@ -7,6 +7,8 @@ import {Productos} from './ProductosPage/Productos';
 import {CreaProducto} from './RegistroProductoPage/CreaProducto';
 import Ventas from './VentasPage/Ventas';
 import { CreaVenta } from './VentaNueva/CreaVenta';
+import { Usuarios } from './UsuariosPage/Usuarios';
+
 
 function App() {
   return (
@@ -31,8 +33,10 @@ function App() {
         <Route exact path="/lista-productos/:id" component={CreaProducto}/>
         <Route exact path="/Ventas" component={Ventas}/>
         <Route exact path="/lista-ventas/:id" component={CreaVenta}/>
-        
-            
+        {/* Seccion Productos */}
+        <Route exact path="/usuarios" component={Usuarios}/>  
+
+
       </Switch>
     </Router>
   );
