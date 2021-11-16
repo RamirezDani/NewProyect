@@ -1,3 +1,4 @@
+
 import React, { Fragment, useEffect } from "react";
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
@@ -7,7 +8,7 @@ import { consultaDb, guardarDb } from "../config/firebase";
 
 
 
-//import { useHistory } from "react-router-dom";
+
 function LoginPage() {
     // let history = useHistory();
     const history = useHistory();
