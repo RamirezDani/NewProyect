@@ -14,8 +14,9 @@ export const CreaProducto = () => {
 
     // console.log('id: ', id);
 
+       
+    const handleNewProducto = async (e) => {            
 
-    const handleNewProducto = async (e) => {
 
 
         e.preventDefault()

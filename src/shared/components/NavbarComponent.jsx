@@ -33,7 +33,7 @@ function NavbarComponent() {
                                     Otros
                                 </Link>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><Link to = '/'class="dropdown-item">Alguna cosa</Link></li>
+                                    <li><Link to = '/Ventas'class="dropdown-item">Ventas</Link></li>
                                     <li><Link to ='/' class="dropdown-item">Alguna otra cosa</Link></li>
                                     <li><hr class="dropdown-divider" /></li>
                                     <li><Link class="dropdown-item">Una cosa más</Link></li>
