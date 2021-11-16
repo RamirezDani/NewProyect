@@ -16,7 +16,7 @@ function LoginPage() {
 
     useEffect(() => {
 
-        if (loginp && loginp.token) { history.replace("/homepage"); }
+        if (loginp && loginp.token) { history.replace("/productos"); }
     }, [loginp]);
 
     async function baseDatos(producto) {
@@ -46,7 +46,7 @@ function LoginPage() {
 
                 baseDatos(producto);
 
-                history.replace("/homepage")
+                history.replace("/productos")
 
             }
 
