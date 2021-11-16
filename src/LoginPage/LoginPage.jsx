@@ -1,7 +1,59 @@
-import React, { Fragment } from "react";
-import { Link } from 'react-router-dom';
-// Esto es solo pa probar el bracnch
+
+import React, { Fragment, useEffect } from "react";
+import { Link, Redirect, useHistory } from 'react-router-dom';
+import GoogleLogin from 'react-google-login';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { consultaDb, guardarDb } from "../config/firebase";
+
+
+
+
+
 function LoginPage() {
+    // let history = useHistory();
+    const history = useHistory();
+    var loginp;
+
+    useEffect(() => {
+
+        if (loginp && loginp.token) { history.replace("/homepage"); }
+    }, [loginp]);
+
+    async function baseDatos(producto) {
+        await guardarDb('lista-usuarios', producto);
+        //const listatempo = await consultaDb('lista-usuarios');
+        //console.log("consulta base de datos: ")
+        //console.log(listatempo)
+
+    }
+
+    function responseGoogle(response) {
+        //alert("hola")
+
+        if (response.accessToken)
+            if (response.nt.Yt) {
+                console.log("login")
+                loginp = response;
+                console.log(response.nt.Yt)//correo
+                console.log(response.nt.Se)//nombre
+                const producto = {
+                    "email": response.nt.Yt,
+                    
+                    "estado": "Pendiente",
+                    "rol": "Sin Rol"
+                }
+
+
+                baseDatos(producto);
+
+                history.replace("/homepage")
+
+            }
+
+
+
+
+    }
 
     return (
         <Fragment>
@@ -40,15 +92,21 @@ function LoginPage() {
                                 <label for="floatingPassword">Contraseña</label>
                             </div>
                             <div className="row">
+
                                 <div className="col">
                                     <br />
-                                    <Link to="/RegisterPage" >Registrate aquí</Link>
-                                </div>
-                                <div className="col">
+                                    <GoogleLogin
+                                        clientId="341831177944-nd2lj723bpfua0q0gm38d3jckhgl3a5k.apps.googleusercontent.com"
+                                        buttonText="LoginG"
+                                        onSuccess={responseGoogle}
+                                        onFailure={responseGoogle}
+                                        cookiePolicy={'single_host_origin'}
+                                        redirectUri='http://localhost:3000/HomePage'
+                                    />
                                     <br />
-                                    <Link to="/HomePage"><button type="button" className="btn btn-primary">Inciar sesión</button></Link>
-                                    <br />
                                 </div>
+
+
                             </div>
 
 

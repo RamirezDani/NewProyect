@@ -17,7 +17,7 @@ function App() {
 
     <Router>
       {/* Llama a la barra de navegacion desde su carpeta*/}
-      <NavbarComponent />
+      
       <Switch>
         <Route path="/" exact>
             <LoginPage />
