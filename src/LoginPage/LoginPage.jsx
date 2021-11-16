@@ -101,7 +101,7 @@ function LoginPage() {
                                         onSuccess={responseGoogle}
                                         onFailure={responseGoogle}
                                         cookiePolicy={'single_host_origin'}
-                                        redirectUri='http://localhost:3000/HomePage'
+                                        redirectUri='https://fervent-elion-3a8251.netlify.app/productos'
                                     />
                                     <br />
                                 </div>
