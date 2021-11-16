@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { actualizarDocDataBase, consultaDb, consultaUnElementoDb } from '../config/firebase';
-
+import NavbarComponent from "../shared/components/NavbarComponent";
 
 
 export const Usuarios = () => {
@@ -68,7 +68,7 @@ export const Usuarios = () => {
 
     return (
         <div className="container mt-3 ">
-
+            <NavbarComponent />
             <table className="table table-striped table-bordered 
             align-middle border-dark mt-4" >
 

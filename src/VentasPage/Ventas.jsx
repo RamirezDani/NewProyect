@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { consultaDb, eliminarDocDataBase} from '../config/firebase';
+import { consultaDb, eliminarDocDataBase } from '../config/firebase';
 import { Link } from 'react-router-dom'
-
+import NavbarComponent from "../shared/components/NavbarComponent";
 
 
 export const Ventas = () => {
 
     /* Se reemplazan productos */
     const [listaVentas, setlistaVentas] = useState([])
-    const [ventaBuscada, setventaBuscada] = useState('') 
+    const [ventaBuscada, setventaBuscada] = useState('')
     const [swt1, setSwt1] = useState(false)
 
     const cargarVentas = async () => {
@@ -72,12 +72,12 @@ export const Ventas = () => {
 
     }
 
-        
+
     return (
 
 
         <div className="container mt-3 ">
-
+            <NavbarComponent />
 
             <div className="d-flex bd-highlight mb-3 ">
 
@@ -88,7 +88,7 @@ export const Ventas = () => {
                 <div className="me-auto p-2 bd-highligh">
                     <Link className="btn btn-primary  border-dark"
                         to="/lista-ventas/create"
-                        /* Se cambia nombre del botón */
+                    /* Se cambia nombre del botón */
                     >Nueva venta</Link>
                 </div>
 
@@ -106,7 +106,7 @@ export const Ventas = () => {
 
                 </div>
 
-                
+
                 <div className="p-2 bd-highlight">
                     <button className="btn btn-info text-white border-dark"
 
@@ -177,7 +177,7 @@ export const Ventas = () => {
 
             </table>
 
-            
+
         </div>
 
     )
