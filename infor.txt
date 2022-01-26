@@ -1,0 +1,114 @@
+import { useState } from "react";
+
+
+export default function App() {
+  const [data, setData] = useState({
+    role: "estudiante",
+    tipo: "admin"
+  });
+
+  const onChange = (e) => {
+    e.preventDefault();
+    const { value, name } = e.target;
+    setData({
+      ...data,
+      [name]: value
+    });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(data);
+  };
+
+  return (
+    <div className="App">
+      <h1>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+      <form
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "200px",
+          alignItems: "center",
+          margin: "auto"
+        }}
+        onSubmit={onSubmit}
+      >
+        <select name="role" value={data.role} onChange={onChange}>
+          <option>estudiante</option>
+          <option>profesor</option>
+        </select>
+        <span>{data.role}</span>
+        <select name="tipo" value={data.tipo} onChange={onChange}>
+          <option>lider</option>
+          <option>admin</option>
+        </select>
+        <span>{data.tipo}</span>
+        <button type="submit">crear</button>
+      </form>
+    </div>
+  );
+}
+
+
+
+
+  
+
+  DATOS BD MONGO ATLAS
+  USER:dbUser1
+  PASSWORD:dbUserKey
+  mongodb+srv://dbUser1:<password>@cluster1.tt32v.mongodb.net/test
+  mongodb+srv://dbUser1:dbUserKey@cluster1.tt32v.mongodb.net/test
+
+  
+                        
+----------------------------------1.PRIVATE ROUTE-------------------------------
+
+import "./styles.css";
+
+
+function PrivateRoute({ children,role, ...rest }) {
+  const getObj = JSON.parse(sessionStorage.getItem("user"));
+  return (
+    <div>
+      {role == getObj.role ?
+         <span>autorizado</span> 
+         : 
+         <span>no autorizado</span>}
+    </div>
+  );
+}
+
+export default function App() {
+
+  const obj = {
+    name : "juan",
+    role : "profesor"
+  }
+
+  sessionStorage.setItem("user",JSON.stringify(obj));
+
+
+  return (
+    <div className="App">
+      <h1>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+      <PrivateRoute role={"estudiante"} path="/students"/>
+      <PrivateRoute role={"profesor"} path={"/profesor"}/>
+    </div>
+  );
+}
+
+
+
+ &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+window.location.reload();
+
+
+ --------------------------------------------------------------
+
+
